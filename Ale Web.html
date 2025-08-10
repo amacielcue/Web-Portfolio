@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alejandra Maciel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { 
+            font-family: 'Inter', sans-serif; 
+        }
+        
+        .gradient-bg { 
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 25%, #2d1b69 50%, #4c1d95 75%, #7c3aed 100%); 
+        }
+        
+        .card-hover { 
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+        }
+        .card-hover:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2); 
+        }
+        
+        .fade-in { 
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: opacity 0.6s ease, transform 0.6s ease; 
+        }
+        .fade-in.visible { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+        
+        .glow { 
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3); 
+        }
+        .text-glow { 
+            text-shadow: 0 0 10px rgba(102, 126, 234, 0.5); 
+        }
+
+        .skill-bar { 
+            transition: width 1s ease-in-out; 
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            margin: 5% auto;
+            padding: 0;
+            border: 1px solid #374151;
+            border-radius: 1rem;
+            width: 95%;
+            max-width: 800px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 2% auto;
+                width: 98%;
+                max-height: 95vh;
+                border-radius: 0.5rem;
+            }
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .close {
+            color: #9ca3af;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            padding: 1rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-gray-800/90 backdrop-blur-sm z-50 border-b border-gray-700">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-bold text-purple-400">Alejandra Maciel Cuevas</div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-300 hover:text-purple-400 transition-colors">Home</a>
+                    <a href="#about" class="text-gray-300 hover:text-purple-400 transition-colors">About</a>
+                    <a href="#experience" class="text-gray-300 hover:text-purple-400 transition-colors">Experience</a>
+                    <a href="#technical" class="text-gray-300 hover:text-purple-400 transition-colors">Technical</a>
+                    <a href="#projects" class="text-gray-300 hover:text-purple-400 transition-colors">Projects</a>
+                    <a href="#skills" class="text-gray-300 hover:text-purple-400 transition-colors">Skills</a>
+                    <!-- <a href="#contact" class="text-gray-300 hover:text-purple-400 transition-colors">Contact</a> -->
+                </div>
+                
+                <button id="mobile-menu-btn" class="md:hidden text-gray-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
+                <a href="#home" class="block text-gray-300 hover:text-purple-400 py-2">Home</a>
+                <a href="#about" class="block text-gray-300 hover:text-purple-400 py-2">About</a>
+                <a href="#experience" class="block text-gray-300 hover:text-purple-400 py-2">Experience</a>
+                <a href="#technical" class="block text-gray-300 hover:text-purple-400 py-2">Technical</a>
+                <a href="#projects" class="block text-gray-300 hover:text-purple-400 py-2">Projects</a>
+                <a href="#skills" class="block text-gray-300 hover:text-purple-400 py-2">Skills</a>
+                <!-- <a href="#contact" class="block text-gray-300 hover:text-purple-400 py-2">Contact</a> -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="gradient-bg min-h-screen flex items-center pt-20">
+        <div class="max-w-6xl mx-auto px-6 text-center text-white">
+            <div class="fade-in">
+                <div class="w-32 h-32 mx-auto mb-8 bg-white/20 rounded-full flex items-center justify-center text-6xl glow">
+                    🎓
+                </div>
+                
+                <h1 class="text-3xl sm:text-5xl md:text-7xl font-bold mb-6 text-glow">Alejandra Maciel Cuevas</h1>
+                <p class="text-lg sm:text-xl md:text-2xl mb-8 text-white/90">Systems Interface Designer. Experience Technologist. Human Centered Engineer.</p>
+                
+                <p class="text-lg mb-12 max-w-3xl mx-auto text-white/80">
+                    Creative technologist developing digital tools that combine code, data, and immersive tech to solve real-world problems.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 sm:space-x-4 sm:gap-0 justify-center">
+                    <a href="#experience" class="bg-purple-500 text-white px-6 sm:px-8 py-3 rounded-full font-semibold hover:bg-purple-600 transition-colors glow text-center">
+                        View My Work
+                    </a>
+                    <a href="mailto:ale.web.portfolio@gmail.com" class="border-2 border-white text-white px-6 sm:px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-gray-900 transition-colors text-center">
+                        Get In Touch
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-800">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-white mb-4">About Me</h2>
+                <div class="w-20 h-1 bg-purple-400 mx-auto"></div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <div class="w-64 h-64 mx-auto bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-8xl glow">
+                        🚀
+                    </div>
+                </div>
+                <div class="fade-in">
+                    <h3 class="text-2xl font-semibold text-purple-400 mb-6">Hi, I’m Alejandra — a technologist who loves building creative, meaningful tools with code and design.</h3>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        I’ve worked on everything from XR training platforms and global health dashboards to mentoring student game developers. Whether I’m working in software, data, or immersive tech, I care about making experiences that are smart, useful, and easy to connect with.
+                    </p>
+                    <p class="text-gray-300 mb-8 leading-relaxed">
+                        I bring a strong foundation in computer science and a cross-disciplinary background that spans software engineering, data analytics, and XR development. My work includes designing scalable databases, building immersive simulations, and managing technical projects that support both education and global impact. I’m especially drawn to human-centered technologies—tools that not only work well but feel intuitive, inclusive, and empowering.
+                    </p>
+                    <!-- <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="text-center p-4 bg-gray-700 border border-gray-600 rounded-lg hover:border-purple-400 transition-colors">
+                            <div class="text-2xl font-bold text-purple-400">600+</div>
+                            <div class="text-gray-300 text-sm sm:text-base">Events Managed</div>
+                        </div>
+                        <div class="text-center p-4 bg-gray-700 border border-gray-600 rounded-lg hover:border-pink-400 transition-colors">
+                            <div class="text-2xl font-bold text-pink-400">10K+</div>
+                            <div class="text-gray-300 text-sm sm:text-base">Database Records</div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 bg-gray-900">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-white mb-4">Professional Experience</h2>
+                <div class="w-20 h-1 bg-purple-400 mx-auto mb-6"></div>
+                <p class="text-gray-300 max-w-2xl mx-auto">A comprehensive overview of my professional journey in educational technology and innovation.</p>
+            </div>
+            
+            <div class="space-y-8">
+                <!-- Current Position -->
+                <div class="bg-gray-800 border border-gray-700 rounded-xl p-8 card-hover fade-in hover:border-yellow-400">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+                        <div>
+                            <h3 class="text-2xl font-semibold text-white mb-2">Instructional Technologist</h3>
+                            <p class="text-yellow-400 font-medium">Learning Environments, UTEP</p>
+                        </div>
+                        <div class="text-gray-400 mt-2 md:mt-0">
+                            <span class="bg-yellow-500/20 text-yellow-400 px-3 py-1 rounded-full text-sm border border-yellow-500/30">Oct 2021 – Present</span>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-purple-400 mb-3">🎥 Audio-Visual Systems</h4>
+                            <p class="text-gray-300 text-sm mb-4">Design and develop room configurations that facilitate seamless integration of new technologies into classroom environments. Oversee and manage installation of more than 10 new systems annually, ensuring successful deployment and functionality.</p>
+                            
+                            <h4 class="font-semibold text-pink-400 mb-3">🥽 Interactive Technologies</h4>
+                            <p class="text-gray-300 text-sm mb-4">Lead the development of Extended Reality (XR) projects for innovative solutions for both educational and industry applications. Conduct presentations and workshops to introduce emerging technologies to students, faculty, and staff, fostering greater engagement with cutting-edge advancements.</p>
+                            
+                            <h4 class="font-semibold text-orange-400 mb-3">🎯 Event Management & Support</h4>
+                            <p class="text-gray-300 text-sm">Coordinate, process, and provide support for more than 600 events annually. Ensure seamless technological support, manage event setup, and handle all associated documentation and client communications and requirements.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-blue-400 mb-3">📊 Data Management & Automation</h4>
+                            <p class="text-gray-300 text-sm mb-4">Manage and optimize departmental data, working to enhance operational efficiency through the development of automated systems and processes. Oversee the maintenance of over 10,000 records across more than 15 distinct database structures, ensuring accuracy and accessibility.</p>
+                            
+                            <h4 class="font-semibold text-green-400 mb-3">🔬 Research & Development</h4>
+                            <p class="text-gray-300 text-sm">Conduct research and analysis on the cost-effectiveness of new machinery for the makerspace. Evaluate potential benefits and opportunities, and formulate strategies for optimal utilization and long-term maintenance.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- NEED TO CHANGE CONTENT -->
+                <div class="grid sm:grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 card-hover fade-in hover:border-purple-400">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-white">Backend Developer</h3>
+                            <span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-1 rounded border border-purple-500/30">Sep 2024 - Present</span>
+                        </div>
+                        <p class="text-purple-400 font-medium mb-4">Lazi App</p>
+                        <ul class="text-gray-300 text-sm space-y-2">
+                            <li>• <strong>Data Management:</strong> Extract, cleanse, transform, and structure existing data to conform to standardized format for efficient querying</li>
+                            <li>• <strong>Database Design:</strong> Develop organizational strategy for efficient data use, ensure consistent formatting and accurate metrics</li>
+                            <li>• <strong>Data Visualizations:</strong> Convert raw data into visual graphics, standardize coding systems and design schemes per approved guidelines</li>
+                            <li>• <strong>Web Development:</strong> Design and develop SharePoint web pages to host global visualizations with seamless access</li>
+                        </ul>
+                    </div>
+                <!-- Previous Positions -->
+                    <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 card-hover fade-in hover:border-blue-400">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-white">Data Consultant</h3>
+                            <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded border border-blue-500/30">Jul-Nov 2021</span>
+                        </div>
+                        <p class="text-blue-400 font-medium mb-4">Pan American Health Organization (PAHO) – WHO</p>
+                        <ul class="text-gray-300 text-sm space-y-2">
+                            <li>• <strong>Data Management:</strong> Extract, cleanse, transform, and structure existing data to conform to standardized format for efficient querying</li>
+                            <li>• <strong>Database Design:</strong> Develop organizational strategy for efficient data use, ensure consistent formatting and accurate metrics</li>
+                            <li>• <strong>Data Visualizations:</strong> Convert raw data into visual graphics, standardize coding systems and design schemes per approved guidelines</li>
+                            <li>• <strong>Web Development:</strong> Design and develop SharePoint web pages to host global visualizations with seamless access</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="grid sm:grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 card-hover fade-in hover:border-green-400">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-white">Enterprise MC/PC Support</h3>
+                            <span class="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded border border-green-500/30">Jun-Oct 2021</span>
+                        </div>
+                        <p class="text-green-400 font-medium mb-4">Learning Environments, UTEP</p>
+                        <ul class="text-gray-300 text-sm space-y-2">
+                            <li>• <strong>Audio-Visual Systems:</strong> Research, design, develop, deploy, and oversee installation of cutting-edge AV systems for hybrid teaching</li>
+                            <li>• <strong>Project Management:</strong> Oversee efficient completion of project lifecycles through budgeting, prototyping, development, and deployment</li>
+                            <li>• <strong>Graphic Design:</strong> Design modern, stylized graphics for UI/UX development, marketing, social media, and branding initiatives</li>
+                            <li>• <strong>Makerspace Projects:</strong> Conduct client consultations for complex multidisciplinary projects including 3D CAD modeling and additive manufacturing</li>
+                            <li>• <strong>Web/App Development:</strong> Conduct HCI research to enhance accessibility and develop software solutions for web and mobile platforms</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 card-hover fade-in hover:border-orange-400">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-white">Student Learning Advisor</h3>
+                            <span class="text-xs bg-orange-500/20 text-orange-400 px-2 py-1 rounded border border-orange-500/30">Apr 2018 – Jun 2021</span>
+                        </div>
+                        <p class="text-orange-400 font-medium mb-4">Learning Environments, UTEP</p>
+                        <ul class="text-gray-300 text-sm space-y-2">
+                            <li>• <strong>Technology Support:</strong> Delivered comprehensive technology support to high-profile guests, assisted faculty and staff with technical issues in MacOS and Windows operating systems across campus</li>
+                            <li>• <strong>Classroom Support:</strong> Provided ongoing technical assistance to faculty in over 200 classrooms, video conference rooms, offices, and computer laboratories</li>
+                            <li>• <strong>Staff Mentorship:</strong> Mentored, supervised, and provided guidance to a team of over 30 staff members in the proper setup, installation, and maintenance of AV equipment, including video scaling switches, IP control systems, and high-resolution laser projectors. Managed team collaboration for technological challenges and drove innovation through AR and VR projects</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Experience Section -->
+    <section id="technical" class="py-20 bg-gray-800">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-white mb-4">Technical Experience</h2>
+                <div class="w-20 h-1 bg-purple-400 mx-auto mb-6"></div>
+                <p class="text-gray-300 max-w-2xl mx-auto">Comprehensive technical achievements across database development, system integration, and project management.</p>
+            </div>
+            
+            <div class="space-y-8">
+                <!-- Database Development -->
+                <div class="bg-gray-900 border border-gray-700 rounded-xl p-8 card-hover fade-in hover:border-purple-400">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-2xl mr-6">
+                            🗄️
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-semibold text-white mb-2">Database Development</h3>
+                            <p class="text-purple-400 font-medium">SQL-Based Systems & Web Interfaces</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">Designed, developed, and implemented an SQL-based database for the Engineering Center at The University of Texas at El Paso. The database was tailored to meet the specific needs of the center, ensuring efficient data storage, retrieval, and management. Additionally, developed a complementary website serving as the user interface, providing an intuitive platform for users to interact with and manage the data within the system.</p>
+                </div>
+
+                <!-- Data Management -->
+                <div class="bg-gray-900 border border-gray-700 rounded-xl p-8 card-hover fade-in hover:border-green-400">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-500 rounded-full flex items-center justify-center text-2xl mr-6">
+                            📊
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-semibold text-white mb-2">Data Management</h3>
+                            <p class="text-green-400 font-medium">Campus-Wide Scheduling Database</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">Led the extraction, structuring, and consolidation of data to create a comprehensive Campus-Wide Scheduling Database that aggregated class registration data from the university each semester. Developed and implemented a script to identify and remove duplicate entries and resolve scheduling conflicts, significantly enhancing the integrity and reliability of the dataset. The structured data was then converted into visualizations to streamline the decision-making process and improve the efficiency of campus-wide support services.</p>
+                </div>
+
+                <!-- Control Systems -->
+                <div class="bg-gray-900 border border-gray-700 rounded-xl p-8 card-hover fade-in hover:border-blue-400">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center text-2xl mr-6">
+                            🎛️
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-semibold text-white mb-2">Control Systems</h3>
+                            <p class="text-blue-400 font-medium">Q-SYS & iOS Classroom Control</p>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-blue-400 mb-3">Q-SYS Classroom Control</h4>
+                            <p class="text-gray-300 text-sm">Designed and developed a Q-SYS system for controlling audiovisual systems within classrooms across campus. This system provided a centralized platform for managing audio, video, and other media devices. Collaborated closely with team members during testing and maintenance phases to ensure system reliability and performance. Additionally, installed and optimized network switches to support Ethernet-based control solutions, enabling remote management and enhancing operational efficiency.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-cyan-400 mb-3">iOS Application Control</h4>
+                            <p class="text-gray-300 text-sm">Worked on cleaning and updating the code for an iOS application used to control lighting, video displays, and audio systems in classrooms and auditoriums. The updates improved system stability, user experience, and ensured compatibility with various devices within the classroom environment.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Management & Cloud Functions -->
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-gray-900 border border-gray-700 rounded-xl p-6 card-hover fade-in hover:border-orange-400">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center text-xl mr-4">
+                                📋
+                            </div>
+                            <h3 class="text-xl font-semibold text-white">Project Management</h3>
+                        </div>
+                        <p class="text-gray-300 text-sm">Managed the planning and scheduling of multiple concurrent projects designed to address technological gaps within the department. This included developing innovative solutions to enhance the university's technological infrastructure. Conducted client consultations to gather user feedback, identify scenarios, and define project requirements. Additionally, continuously developed and refined Extended Reality (XR) software, with applications in both education and industry, providing cutting-edge solutions each semester.</p>
+                    </div>
+
+                    <div class="bg-gray-900 border border-gray-700 rounded-xl p-6 card-hover fade-in hover:border-pink-400">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center text-xl mr-4">
+                                ☁️
+                            </div>
+                            <h3 class="text-xl font-semibold text-white">Cloud Functions</h3>
+                        </div>
+                        <p class="text-gray-300 text-sm">Coded and developed the underlying logic for several cloud-based functions that were integral to the basic functionality of a widely publicized application. This involved the integration of third-party API keys, webhooks, and leveraging extensive documentation to ensure seamless interaction between the cloud infrastructure and the application, enhancing its performance and user experience.</p>
+                    </div>
+                </div>
+
+                <!-- Administrative Management -->
+                <div class="bg-gray-900 border border-gray-700 rounded-xl p-8 card-hover fade-in hover:border-yellow-400">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center text-2xl mr-6">
+                            🎮
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-semibold text-white mb-2">Administrative Management</h3>
+                            <p class="text-yellow-400 font-medium">Game Development Studio Co-Founder</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-4">Co-founded and managed an industry-standard game development studio, fully operated by college students. In this role, was responsible for overseeing resource allocation, budgeting, and training initiatives aimed at developing industry-relevant skills among team members. Also led the research and development efforts to ensure the studio's work adhered to professional standards, and collaborated in the development of active game deployments, contributing to the studio's continued success and growth.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-gray-900">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-white mb-4">Technical Projects</h2>
+                <div class="w-20 h-1 bg-purple-400 mx-auto mb-6"></div>
+                <p class="text-gray-300 max-w-2xl mx-auto">Showcasing key technical achievements and innovative solutions.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <div class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg overflow-hidden card-hover fade-in hover:border-purple-400 cursor-pointer" onclick="openProjectModal('database')">
+                    <div class="h-48 bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-6xl">
+                        🗄️
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-3">Database Development</h3>
+                        <p class="text-gray-300 mb-4">Designed SQL-based systems with custom web interfaces for campus-wide scheduling and data management.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-purple-500/20 text-purple-400 border border-purple-500/30 rounded-full text-sm">SQL</span>
+                            <span class="px-3 py-1 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-full text-sm">Web Interface</span>
+                            <span class="px-3 py-1 bg-green-500/20 text-green-400 border border-green-500/30 rounded-full text-sm">Data Visualization</span>
+                        </div>
+                        <div class="text-center mt-4">
+                            <span class="text-purple-400 text-sm">Click to learn more →</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg overflow-hidden card-hover fade-in hover:border-pink-400 cursor-pointer" onclick="openProjectModal('xr')">
+                    <div class="h-48 bg-gradient-to-br from-pink-500 to-orange-500 flex items-center justify-center text-6xl">
+                        🥽
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-3">XR Development</h3>
+                        <p class="text-gray-300 mb-4">Leading Extended Reality projects for educational and industry applications using cutting-edge AR/VR technologies.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-pink-500/20 text-pink-400 border border-pink-500/30 rounded-full text-sm">Unity</span>
+                            <span class="px-3 py-1 bg-orange-500/20 text-orange-400 border border-orange-500/30 rounded-full text-sm">AR/VR</span>
+                            <span class="px-3 py-1 bg-red-500/20 text-red-400 border border-red-500/30 rounded-full text-sm">C#</span>
+                        </div>
+                        <div class="text-center mt-4">
+                            <span class="text-pink-400 text-sm">Click to learn more →</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg overflow-hidden card-hover fade-in hover:border-green-400 cursor-pointer" onclick="openProjectModal('av')">
+                    <div class="h-48 bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center text-6xl">
+                        🎛️
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-3">AV Control Systems</h3>
+                        <p class="text-gray-300 mb-4">Q-SYS systems integration with iOS classroom AV control for seamless educational technology experiences.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-green-500/20 text-green-400 border border-green-500/30 rounded-full text-sm">Q-SYS</span>
+                            <span class="px-3 py-1 bg-teal-500/20 text-teal-400 border border-teal-500/30 rounded-full text-sm">iOS</span>
+                            <span class="px-3 py-1 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-full text-sm">Extron</span>
+                        </div>
+                        <div class="text-center mt-4">
+                            <span class="text-green-400 text-sm">Click to learn more →</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg overflow-hidden card-hover fade-in hover:border-yellow-400 cursor-pointer" onclick="openProjectModal('game')">
+                    <div class="h-48 bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center text-6xl">
+                        🎮
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-3">Game Development Studio</h3>
+                        <p class="text-gray-300 mb-4">Co-founded game development studio with resource management and training programs for collegiate competitions.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 rounded-full text-sm">Unity</span>
+                            <span class="px-3 py-1 bg-orange-500/20 text-orange-400 border border-orange-500/30 rounded-full text-sm">Project Management</span>
+                            <span class="px-3 py-1 bg-red-500/20 text-red-400 border border-red-500/30 rounded-full text-sm">Mentoring</span>
+                        </div>
+                        <div class="text-center mt-4">
+                            <span class="text-yellow-400 text-sm">Click to learn more →</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg overflow-hidden card-hover fade-in hover:border-cyan-400 cursor-pointer" onclick="openProjectModal('cloud')">
+                    <div class="h-48 bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center text-6xl">
+                        ☁️
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-3">Cloud Functions & APIs</h3>
+                        <p class="text-gray-300 mb-4">Developed cloud-based APIs and webhooks for automated data processing and system integration.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 rounded-full text-sm">APIs</span>
+                            <span class="px-3 py-1 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-full text-sm">Webhooks</span>
+                            <span class="px-3 py-1 bg-purple-500/20 text-purple-400 border border-purple-500/30 rounded-full text-sm">Python</span>
+                        </div>
+                        <div class="text-center mt-4">
+                            <span class="text-cyan-400 text-sm">Click to learn more →</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg overflow-hidden card-hover fade-in hover:border-indigo-400 cursor-pointer" onclick="openProjectModal('mobile')">
+                    <div class="h-48 bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-6xl">
+                        📱
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-white mb-3">Mobile App Development</h3>
+                        <p class="text-gray-300 mb-4">Cross-platform mobile applications using Flutter/Dart for educational and administrative purposes.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 rounded-full text-sm">Flutter</span>
+                            <span class="px-3 py-1 bg-purple-500/20 text-purple-400 border border-purple-500/30 rounded-full text-sm">Dart</span>
+                            <span class="px-3 py-1 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-full text-sm">Cross-platform</span>
+                        </div>
+                        <div class="text-center mt-4">
+                            <span class="text-indigo-400 text-sm">Click to learn more →</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-gray-900">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-white mb-4">Technical Skills & Certifications</h2>
+                <div class="w-20 h-1 bg-purple-400 mx-auto mb-6"></div>
+                <p class="text-gray-300 max-w-2xl mx-auto">Comprehensive technical expertise across multiple domains.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-16">
+                <div class="fade-in">
+                    <h3 class="text-2xl font-semibold text-purple-400 mb-8">Programming & Development</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300 font-medium">Python</span>
+                                <span class="text-gray-400">95%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-3">
+                                <div class="skill-bar bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full glow" style="width: 0%" data-width="95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300 font-medium">Java</span>
+                                <span class="text-gray-400">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-3">
+                                <div class="skill-bar bg-gradient-to-r from-blue-500 to-cyan-500 h-3 rounded-full glow" style="width: 0%" data-width="90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300 font-medium">JavaScript/HTML/CSS</span>
+                                <span class="text-gray-400">88%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-3">
+                                <div class="skill-bar bg-gradient-to-r from-green-500 to-teal-500 h-3 rounded-full glow" style="width: 0%" data-width="88%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300 font-medium">C# / Unity</span>
+                                <span class="text-gray-400">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-3">
+                                <div class="skill-bar bg-gradient-to-r from-orange-500 to-red-500 h-3 rounded-full glow" style="width: 0%" data-width="85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fade-in">
+                    <h3 class="text-2xl font-semibold text-pink-400 mb-8">Systems & Technologies</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300 font-medium">Database Design (SQL)</span>
+                                <span class="text-gray-400">92%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-3">
+                                <div class="skill-bar bg-gradient-to-r from-indigo-500 to-purple-500 h-3 rounded-full glow" style="width: 0%" data-width="92%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300 font-medium">AV Systems (Q-SYS/Extron)</span>
+                                <span class="text-gray-400">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-3">
+                                <div class="skill-bar bg-gradient-to-r from-yellow-500 to-orange-500 h-3 rounded-full glow" style="width: 0%" data-width="90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300 font-medium">XR Development</span>
+                                <span class="text-gray-400">87%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-3">
+                                <div class="skill-bar bg-gradient-to-r from-pink-500 to-red-500 h-3 rounded-full glow" style="width: 0%" data-width="87%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300 font-medium">Project Management</span>
+                                <span class="text-gray-400">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-3">
+                                <div class="skill-bar bg-gradient-to-r from-cyan-500 to-blue-500 h-3 rounded-full glow" style="width: 0%" data-width="85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certifications -->
+            <div class="fade-in">
+                <h3 class="text-2xl font-semibold text-green-400 mb-8 text-center">Professional Certifications</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                    <div class="bg-gray-800 border border-gray-700 rounded-lg p-6 text-center hover:border-green-400 transition-colors">
+                        <div class="text-3xl mb-3">🎥</div>
+                        <h4 class="font-semibold text-white mb-2">Extron Certified</h4>
+                        <p class="text-gray-400 text-sm">AV Associate, Control and NAV Specialist, and Authorized Programmer</p>
+                    </div>
+                    <div class="bg-gray-800 border border-gray-700 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
+                        <div class="text-3xl mb-3">🔊</div>
+                        <h4 class="font-semibold text-white mb-2">Q-SYS Certified</h4>
+                        <p class="text-gray-400 text-sm">Reflect Enterprise Manager</p>
+                    </div>
+                    <div class="bg-gray-800 border border-gray-700 rounded-lg p-6 text-center hover:border-red-400 transition-colors">
+                        <div class="text-3xl mb-3">🍎</div>
+                        <h4 class="font-semibold text-white mb-2">Apple Teacher</h4>
+                        <p class="text-gray-400 text-sm">Educational Technology Integration</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Languages -->
+            <div class="mt-16 fade-in">
+                <h3 class="text-2xl font-semibold text-orange-400 mb-8 text-center">Languages</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-3xl mx-auto">
+                    <div class="text-center p-6 bg-gray-800 border border-gray-700 rounded-lg hover:border-orange-400 transition-colors">
+                        <div class="text-3xl mb-3">🇪🇸</div>
+                        <h4 class="font-semibold text-white mb-2">Spanish</h4>
+                        <p class="text-orange-400">Fluent</p>
+                    </div>
+                    <div class="text-center p-6 bg-gray-800 border border-gray-700 rounded-lg hover:border-blue-400 transition-colors">
+                        <div class="text-3xl mb-3">🇫🇷</div>
+                        <h4 class="font-semibold text-white mb-2">French</h4>
+                        <p class="text-blue-400">Intermediate</p>
+                    </div>
+                    <div class="text-center p-6 bg-gray-800 border border-gray-700 rounded-lg hover:border-red-400 transition-colors">
+                        <div class="text-3xl mb-3">🇨🇳</div>
+                        <h4 class="font-semibold text-white mb-2">Mandarin</h4>
+                        <p class="text-red-400">Beginner</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <!-- <section id="contact" class="py-20 bg-gray-800">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-white mb-4">Get In Touch</h2>
+                <div class="w-20 h-1 bg-purple-400 mx-auto mb-6"></div>
+                <p class="text-gray-300 max-w-2xl mx-auto mb-8">Interested in collaborating on innovative educational technology projects? Let's discuss how we can transform learning experiences together.</p>
+                
+                Key Messages
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-6xl mx-auto mb-12">
+                    <div class="bg-gray-900 border border-gray-700 rounded-xl p-6 hover:border-purple-400 transition-colors">
+                        <div class="text-3xl mb-3">🚀</div>
+                        <h3 class="font-semibold text-purple-400 mb-2">Innovation First</h3>
+                        <p class="text-gray-300 text-sm">I bring fresh perspectives and cutting-edge solutions to every project, ensuring your ideas stand out in the market.</p>
+                    </div>
+                    <div class="bg-gray-900 border border-gray-700 rounded-xl p-6 hover:border-green-400 transition-colors">
+                        <div class="text-3xl mb-3">⚡</div>
+                        <h3 class="font-semibold text-green-400 mb-2">Fast Delivery</h3>
+                        <p class="text-gray-300 text-sm">Time is valuable. I deliver high-quality results quickly without compromising on excellence or attention to detail.</p>
+                    </div>
+                    <div class="bg-gray-900 border border-gray-700 rounded-xl p-6 hover:border-pink-400 transition-colors">
+                        <div class="text-3xl mb-3">🎯</div>
+                        <h3 class="font-semibold text-pink-400 mb-2">Results Focused</h3>
+                        <p class="text-gray-300 text-sm">Every line of code serves a purpose. I focus on creating solutions that drive real business outcomes and user satisfaction.</p>
+                    </div>
+                    <div class="bg-gray-900 border border-gray-700 rounded-xl p-6 hover:border-orange-400 transition-colors">
+                        <div class="text-3xl mb-3">🤝</div>
+                        <h3 class="font-semibold text-orange-400 mb-2">Partnership Approach</h3>
+                        <p class="text-gray-300 text-sm">I work as an extension of your team, providing transparent communication and collaborative problem-solving throughout the project.</p>
+                    </div>
+                </div>
+            </div>
+            
+            Contact Info
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                <div class="fade-in">
+                    <h3 class="text-2xl font-semibold text-purple-400 mb-6">Let's Connect</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-purple-500/20 border border-purple-500/30 rounded-full flex items-center justify-center text-purple-400 text-xl">
+                                📧
+                            </div>
+                            <div>
+                                <div class="font-medium text-white">Email</div>
+                                <div class="text-gray-300">ale.web.portfolio@gmail.com</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-blue-500/20 border border-blue-500/30 rounded-full flex items-center justify-center text-blue-400 text-xl">
+                                💼
+                            </div>
+                            <div>
+                                <div class="font-medium text-white">LinkedIn</div>
+                                <div class="text-gray-300">linkedin.com/in/alejandramaciel</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-green-500/20 border border-green-500/30 rounded-full flex items-center justify-center text-green-400 text-xl">
+                                🎓
+                            </div>
+                            <div>
+                                <div class="font-medium text-white">Institution</div>
+                                <div class="text-gray-300">University of Texas at El Paso</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-orange-500/20 border border-orange-500/30 rounded-full flex items-center justify-center text-orange-400 text-xl">
+                                🌐
+                            </div>
+                            <div>
+                                <div class="font-medium text-white">Research Focus</div>
+                                <div class="text-gray-300">Educational Technology & XR Innovation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fade-in">
+                    <div class="bg-gray-900 border border-gray-700 rounded-xl shadow-lg p-8">
+                        <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4 mb-6">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-yellow-400">⚠️</span>
+                                <span class="text-yellow-300 font-medium">Demo Contact Form</span>
+                            </div>
+                            <p class="text-yellow-200 text-sm mt-1">This is a sample form for demonstration purposes.</p>
+                        </div>
+                        <form id="contact-form">
+                            <div class="mb-6">
+                                <label class="block text-gray-300 font-medium mb-2">Name</label>
+                                <input type="text" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white" placeholder="Your Name">
+                            </div>
+                            <div class="mb-6">
+                                <label class="block text-gray-300 font-medium mb-2">Email</label>
+                                <input type="email" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white" placeholder="your@email.com">
+                            </div>
+                            <div class="mb-6">
+                                <label class="block text-gray-300 font-medium mb-2">Project Type</label>
+                                <select class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white">
+                                    <option>XR Development</option>
+                                    <option>Database Design</option>
+                                    <option>AV Systems</option>
+                                    <option>Educational Technology</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div class="mb-6">
+                                <label class="block text-gray-300 font-medium mb-2">Message</label>
+                                <textarea rows="4" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white" placeholder="Tell me about your project..."></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-lg font-semibold hover:from-purple-600 hover:to-pink-600 transition-all glow">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Project Modals -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeProjectModal()">&times;</span>
+            <div id="modalContent">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-20 bg-gray-800 border-t border-gray-700 text-white py-6">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <!-- <div class="text-2xl font-bold mb-4 text-purple-400">Alejandra Maciel Cuevas</div>
+            <p class="text-gray-400 mb-6">Innovating education through technology, one project at a time.</p>
+            <div class="flex justify-center space-x-4 sm:space-x-6 mb-8">
+                <button class="w-12 h-12 bg-gray-800 border border-gray-600 rounded-full flex items-center justify-center hover:bg-purple-500 hover:border-purple-400 transition-colors text-xl">
+                    💼
+                </button>
+                <button class="w-12 h-12 bg-gray-800 border border-gray-600 rounded-full flex items-center justify-center hover:bg-blue-500 hover:border-blue-400 transition-colors text-xl">
+                    🎓
+                </button>
+                <button class="w-12 h-12 bg-gray-800 border border-gray-600 rounded-full flex items-center justify-center hover:bg-green-500 hover:border-green-400 transition-colors text-xl">
+                    📧
+                </button>
+                <button class="w-12 h-12 bg-gray-800 border border-gray-600 rounded-full flex items-center justify-center hover:bg-orange-500 hover:border-orange-400 transition-colors text-xl">
+                    🥽
+                </button>
+            </div> -->
+            <div class="text-2xl font-bold mb-4 text-purple-400">Alejandra Maciel Cuevas</div>
+            <p class="text-gray-500 text-sm mt-2">M.S. Data and Information Sciences | B.S. Computer Science</p>
+            <p class="text-gray-500 text-sm mt-2">Get in touch: ale.web.portfolio@gmail.com</p>
+            
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // Fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Skill bar animations
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const skillBars = entry.target.querySelectorAll('.skill-bar');
+                    skillBars.forEach(bar => {
+                        const width = bar.getAttribute('data-width');
+                        setTimeout(() => {
+                            bar.style.width = width;
+                        }, 200);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        const skillsSection = document.getElementById('skills');
+        if (skillsSection) {
+            skillObserver.observe(skillsSection);
+        }
+
+        // Contact form handling
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const originalHTML = form.innerHTML;
+            
+            form.innerHTML = `
+                <div class="text-center py-8">
+                    <div class="text-6xl mb-4">✅</div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Message Sent!</h3>
+                    <p class="text-gray-300 mb-4">This is a demo form. In a real implementation, your message would be sent.</p>
+                    <button type="button" onclick="resetForm()" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all glow">
+                        Send Another Message
+                    </button>
+                </div>
+            `;
+            
+            window.originalFormHTML = originalHTML;
+        });
+
+        window.resetForm = function() {
+            const form = document.getElementById('contact-form');
+            form.innerHTML = window.originalFormHTML;
+            
+            form.addEventListener('submit', arguments.callee.caller);
+        };
+
+        // Project modal functionality
+        const projectData = {
+            database: {
+                title: "Database Development",
+                icon: "🗄️",
+                gradient: "from-purple-500 to-blue-500",
+                description: "Comprehensive SQL-based database systems with custom web interfaces for campus-wide data management and visualization.",
+                details: [
+                    "Designed and implemented SQL-based database for the Engineering Center at UTEP",
+                    "Developed complementary website serving as intuitive user interface",
+                    "Created Campus-Wide Scheduling Database aggregating class registration data",
+                    "Implemented automated scripts for duplicate removal and conflict resolution",
+                    "Built data visualization tools for streamlined decision-making processes",
+                    "Managed over 10,000 records across 15+ distinct database structures"
+                ],
+                technologies: ["SQL", "Web Interface", "Data Visualization", "Python", "JavaScript", "Database Design"],
+                impact: "Significantly enhanced data integrity and reliability while improving efficiency of campus-wide support services through automated data processing and visualization tools."
+            },
+            xr: {
+                title: "XR Development",
+                icon: "🥽",
+                gradient: "from-pink-500 to-orange-500",
+                description: "Leading Extended Reality projects for innovative educational and industry applications using cutting-edge AR/VR technologies.",
+                details: [
+                    "Developed Extended Reality (XR) software for educational applications",
+                    "Created industry-focused AR/VR solutions for enhanced learning experiences",
+                    "Conducted presentations and workshops on emerging XR technologies",
+                    "Integrated XR solutions into classroom environments for immersive learning",
+                    "Collaborated with faculty to design XR experiences for various disciplines",
+                    "Continuously refined XR applications based on user feedback and testing"
+                ],
+                technologies: ["Unity", "AR/VR", "C#", "3D Modeling", "Oculus SDK", "ARCore"],
+                impact: "Transformed traditional learning experiences by introducing immersive XR technologies, fostering greater student engagement and providing innovative solutions for both educational and industry applications."
+            },
+            av: {
+                title: "AV Control Systems",
+                icon: "🎛️",
+                gradient: "from-green-500 to-teal-500",
+                description: "Advanced Q-SYS systems integration with iOS classroom control for seamless educational technology experiences.",
+                details: [
+                    "Designed and developed Q-SYS systems for centralized AV control",
+                    "Created iOS applications for classroom lighting, video, and audio control",
+                    "Installed and optimized network switches for Ethernet-based control",
+                    "Collaborated on testing and maintenance phases for system reliability",
+                    "Integrated third-party devices and protocols for comprehensive control",
+                    "Provided remote management capabilities for enhanced operational efficiency"
+                ],
+                technologies: ["Q-SYS", "iOS", "Extron", "Network Configuration", "Swift", "Control Protocols"],
+                impact: "Enabled seamless control of audiovisual systems across campus, improving classroom functionality and providing instructors with intuitive tools for enhanced teaching experiences."
+            },
+            game: {
+                title: "Game Development Studio",
+                icon: "🎮",
+                gradient: "from-yellow-500 to-orange-500",
+                description: "Co-founded industry-standard game development studio with comprehensive resource management and training programs.",
+                details: [
+                    "Co-founded and managed industry-standard game development studio",
+                    "Oversaw resource allocation and budgeting for multiple concurrent projects",
+                    "Developed training initiatives for industry-relevant skill development",
+                    "Led research and development efforts to maintain professional standards",
+                    "Collaborated in active game deployments and publishing processes",
+                    "Mentored college students in game development best practices"
+                ],
+                technologies: ["Unity", "Project Management", "Mentoring", "Game Design", "Version Control", "Agile Development"],
+                impact: "Successfully established a fully operational game development studio run by college students, contributing to professional skill development and creating industry-standard game deployments."
+            },
+            cloud: {
+                title: "Cloud Functions & APIs",
+                icon: "☁️",
+                gradient: "from-cyan-500 to-blue-500",
+                description: "Developed sophisticated cloud-based APIs and webhooks for automated data processing and seamless system integration.",
+                details: [
+                    "Coded underlying logic for cloud-based functions in publicized applications",
+                    "Integrated third-party API keys and webhooks for seamless functionality",
+                    "Developed automated data processing systems for improved efficiency",
+                    "Implemented secure authentication and authorization protocols",
+                    "Created scalable cloud infrastructure for high-availability applications",
+                    "Optimized performance through extensive documentation and testing"
+                ],
+                technologies: ["APIs", "Webhooks", "Python", "Cloud Computing", "Authentication", "Data Processing"],
+                impact: "Enhanced application performance and user experience through robust cloud infrastructure, enabling seamless integration between systems and automated data processing workflows."
+            },
+            mobile: {
+                title: "Mobile App Development",
+                icon: "📱",
+                gradient: "from-indigo-500 to-purple-500",
+                description: "Cross-platform mobile applications using Flutter/Dart for educational and administrative purposes with modern UI/UX design.",
+                details: [
+                    "Developed cross-platform mobile applications using Flutter framework",
+                    "Created educational apps for enhanced student learning experiences",
+                    "Built administrative tools for streamlined campus operations",
+                    "Implemented responsive design principles for various screen sizes",
+                    "Integrated with existing database systems for real-time data access",
+                    "Conducted user testing and iterative improvements based on feedback"
+                ],
+                technologies: ["Flutter", "Dart", "Cross-platform", "Mobile UI/UX", "API Integration", "Firebase"],
+                impact: "Delivered intuitive mobile solutions that improved accessibility to educational resources and administrative tools, enhancing user experience across different platforms and devices."
+            }
+        };
+
+        function openProjectModal(projectId) {
+            const modal = document.getElementById('projectModal');
+            const modalContent = document.getElementById('modalContent');
+            const project = projectData[projectId];
+            
+            modalContent.innerHTML = `
+                <div class="p-4 sm:p-6 lg:p-8">
+                    <div class="flex flex-col sm:flex-row items-center sm:items-start mb-6">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br ${project.gradient} rounded-full flex items-center justify-center text-3xl sm:text-4xl mb-4 sm:mb-0 sm:mr-6 glow">
+                            ${project.icon}
+                        </div>
+                        <div class="text-center sm:text-left">
+                            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-2">${project.title}</h2>
+                            <p class="text-gray-300 text-sm sm:text-base">${project.description}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-8">
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-semibold text-purple-400 mb-4">Key Achievements</h3>
+                            <ul class="space-y-3">
+                                ${project.details.map(detail => `
+                                    <li class="flex items-start space-x-3">
+                                        <span class="text-green-400 mt-1 text-sm">✓</span>
+                                        <span class="text-gray-300 text-xs sm:text-sm">${detail}</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-semibold text-pink-400 mb-4">Technologies Used</h3>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                ${project.technologies.map(tech => `
+                                    <span class="px-2 sm:px-3 py-1 bg-gray-700 border border-gray-600 text-gray-300 rounded-full text-xs sm:text-sm hover:border-purple-400 transition-colors">${tech}</span>
+                                `).join('')}
+                            </div>
+                            
+                            <h3 class="text-lg sm:text-xl font-semibold text-orange-400 mb-4">Impact & Results</h3>
+                            <p class="text-gray-300 text-xs sm:text-sm leading-relaxed">${project.impact}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center pt-6 border-t border-gray-700">
+                        <button onclick="closeProjectModal()" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 sm:px-8 py-3 rounded-full font-semibold hover:from-purple-600 hover:to-pink-600 transition-all glow text-sm sm:text-base">
+                            Close Details
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeProjectModal() {
+            const modal = document.getElementById('projectModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('projectModal');
+            if (event.target === modal) {
+                closeProjectModal();
+            }
+        };
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeProjectModal();
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96a2fa7a1001391e',t:'MTc1NDM2MjEzNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
